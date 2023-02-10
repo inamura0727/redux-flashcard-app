@@ -1,3 +1,43 @@
+# エラー関連
+#### エラー文
+cannot assign to read only property '0' of object '[object array]'
+ 
+#### 問題の状況
+シャッフルボタンを押した際に、initinalState:{ value: CardData }のCardDataをシャッフルしたかった。
+```
+ for (let i = CardData.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        <!-- 以下の記述の部分に 上記のエラーが入る-->
+        [CardData[i], CardData[j]] = [CardData[j], CardData[i]];
+      }
+```
+
+#### 原因
+読み取り専用データを変えようとしたため、エラーが発生。（なぜ専用読み取りになってイルカはわかりませんでした...）
+
+####　　とった対策
+変更できなかったデータをコピーして他の変数に入れて、その値を修正。以下のように変更。
+
+スプレッド構文によるオブジェクトのコピーをシャロー（shallow）コピーという。
+```
+let tmp =[...CardData]
+for (let i = tmp.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [tmp[i], tmp[j]] = [tmp[j], tmp[i]];
+      }
+       state.value = tmp
+```
+
+#### 参考にしたサイト
+- [シャローコピー・ディープコピーとは](https://zenn.dev/luvmini511/articles/722cb85067d4e9)
+- [[React] TypeError: Cannot assign to read only property '0' of object '[object Array]'](https://velog.io/@rkio/React-TypeError-Cannot-assign-to-read-only-property-0-of-object-object-Array)
+- [Deep copy (ディープコピー)](https://developer.mozilla.org/ja/docs/Glossary/Deep_copy)
+- [Shallow copy (シャローコピー)](https://developer.mozilla.org/ja/docs/Glossary/Shallow_copy)
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
