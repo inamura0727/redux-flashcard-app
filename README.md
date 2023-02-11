@@ -3,6 +3,7 @@
 cannot assign to read only property '0' of object '[object array]'
  
 #### 問題の状況
+オブジェクトの配列をシャッフルすること。
 シャッフルボタンを押した際に、initinalState:{ value: CardData }のCardDataをシャッフルしたかった。
 ```
  for (let i = CardData.length - 1; i > 0; i--) {
@@ -13,7 +14,7 @@ cannot assign to read only property '0' of object '[object array]'
 ```
 
 #### 原因
-読み取り専用データを変えようとしたため、エラーが発生。（なぜ専用読み取りになってイルカはわかりませんでした...）
+読み取り専用データを変えようとしたため、エラーが発生。（なぜ専用読み取りになっているかはわかりませんでした...）
 
 ####　　とった対策
 変更できなかったデータをコピーして他の変数に入れて、その値を修正。以下のように変更。
