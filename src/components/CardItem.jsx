@@ -6,12 +6,14 @@ export const CardItem = ({ cardList }) => {
   const [count, setCount] = useState(0);
   const [output, setOutput] = useState([cardList[0]]);
   const [isAnswer, setIsAnswer] = useState('');
+  const [isFinished, setIsFinished] = useState(false);
   const answer = useRef(null);
 
   const dispatch = useDispatch();
 
   const handleClikc = () => {
     if (count === cardList.length) {
+      setIsFinished(true);
       return;
     }
     if (count < cardList.length) {
@@ -20,18 +22,20 @@ export const CardItem = ({ cardList }) => {
     }
   };
 
-  console.log(output.id)
+  console.log(output.id);
   return (
     <div ref={answer}>
       <h1>hello world</h1>
-      <button onClick={handleClikc}>次へ</button>
+      {isFinished ? (
+        <button>
+          <a href="/cardList">一覧画面へ戻る</a>
+        </button>
+      ) : (
+        <button onClick={handleClikc}>{output[0] ? 'スタート' : '次へ'}</button>
+      )}
       <h1>{output.word}</h1>
       <p>{isAnswer}</p>
       <button onClick={() => setIsAnswer(output.mean)}>答え</button>
-      <br />
-      <button onClick={() => dispatch(deleteCard({ id: output.id }))}>
-        削除
-      </button>
     </div>
   );
 };

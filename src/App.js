@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCard, deleteCard, shuffleCard } from './redux/cardSlice';
+import { addCard, shuffleCard } from './redux/cardSlice';
 import { useState } from 'react';
 import { CardItem } from './components/CardItem';
 
@@ -49,18 +49,6 @@ function App() {
           シャッフル
         </button>
         <br />
-        {/* <div className="displayCards">
-          {cardList.map((card) => (
-            <div key={card.id}>
-              <h1>{card.word}</h1> */}
-        {/* <p>{card.mean}</p> */}
-        {/* <Sample cardMean={card.mean} />
-              <button onClick={() => dispatch(deleteCard({ id: card.id }))}>
-                削除
-              </button>
-            </div> */}
-        {/* ))} */}
-        {/* </div> */}
         <CardItem
           cardList={cardList}
         />
