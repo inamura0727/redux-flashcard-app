@@ -1,59 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCard, shuffleCard } from './redux/cardSlice';
-import { useState } from 'react';
+import { shuffleCard } from './redux/cardSlice';
 import { CardItem } from './components/CardItem';
+import { useState } from 'react';
 
 function App() {
-  const [word, setWord] = useState('');
-  const [mean, setMean] = useState('');
+  const [isShuffled, setIshuffled] = useState(false);
 
   const cardList = useSelector((state) => state.cards.value);
   const dispatch = useDispatch();
 
-  // 単語を追加
   const handleClick = () => {
-    dispatch(
-      addCard({
-        id: cardList.length + 1,
-        word: word,
-        mean: mean,
-      }),
-    );
-    setWord('');
-    setMean('');
+    dispatch(shuffleCard(cardList));
+    setIshuffled(true);
   };
+
+  console.log(cardList, isShuffled);
 
   return (
     <div className="App">
       <div>
         <h1>React-redux-単語帳アプリ</h1>
       </div>
-      <div className="addPost">
-        <input
-          type="text"
-          placeholder="単語を書いてね！"
-          onChange={(e) => setWord(e.target.value)}
-          value={word}
-        />
-        <input
-          type="text"
-          placeholder="意味を書いてね！"
-          onChange={(e) => setMean(e.target.value)}
-          value={mean}
-        />
-        <button onClick={() => handleClick()}>追加</button>
-        <hr />
-        <button onClick={() => dispatch(shuffleCard(cardList))}>
-          シャッフル
-        </button>
-        <br />
-        <CardItem
-          cardList={cardList}
-        />
-        <br />
-      </div>
+      <button onClick={handleClick}>シャッフル</button>
+      {isShuffled ? <p>シャッフルされた！</p> : null}
+      <br />
+      <CardItem cardList={cardList} />
+      <br />
+      <button>
+        <a href="/cardList">カード一覧ページへ</a>
+      </button>
     </div>
   );
 }

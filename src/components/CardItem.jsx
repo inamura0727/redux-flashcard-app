@@ -1,6 +1,4 @@
 import { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteCard } from '../redux/cardSlice';
 
 export const CardItem = ({ cardList }) => {
   const [count, setCount] = useState(0);
@@ -9,7 +7,6 @@ export const CardItem = ({ cardList }) => {
   const [isFinished, setIsFinished] = useState(false);
   const answer = useRef(null);
 
-  const dispatch = useDispatch();
 
   const handleClikc = () => {
     if (count === cardList.length) {
@@ -22,7 +19,6 @@ export const CardItem = ({ cardList }) => {
     }
   };
 
-  console.log(output.id);
   return (
     <div ref={answer}>
       <h1>hello world</h1>
