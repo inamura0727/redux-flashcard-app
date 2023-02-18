@@ -16,8 +16,6 @@ function App() {
     setIshuffled(true);
   };
 
-  console.log(cardList, isShuffled);
-
   return (
     <div className="App">
       <div>

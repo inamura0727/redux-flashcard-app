@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCard, deleteCard } from './redux/cardSlice';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { getCards } from './redux/cardSlice';
 
 function CardList() {
   const [word, setWord] = useState('');
@@ -9,6 +11,10 @@ function CardList() {
 
   const cardList = useSelector((state) => state.cards.value);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCards());
+  }, [dispatch]);
 
   // 単語を追加
   const handleClick = () => {
@@ -56,6 +62,9 @@ function CardList() {
             <button onClick={() => dispatch(deleteCard({ id: card.id }))}>
               削除
             </button>
+            {/* <button>
+              <a href={`/editCard/${card.id}`}>編集</a>
+            </button> */}
           </div>
         ))}
       </div>
