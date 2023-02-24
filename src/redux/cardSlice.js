@@ -3,6 +3,7 @@ import axios from 'axios';
 
 let cards = [];
 
+// GET データの取得
 export const fetchAsyncget = createAsyncThunk('fetch/get', async () => {
   const res = await axios.get(
     'https://d0srykgawf.execute-api.ap-northeast-1.amazonaws.com/dev',
@@ -11,6 +12,7 @@ export const fetchAsyncget = createAsyncThunk('fetch/get', async () => {
   return res.data;
 });
 
+// POST データの追加
 export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
   const res = await axios.post(
     'https://qg5is56b4g.execute-api.ap-northeast-1.amazonaws.com/dev',
@@ -19,18 +21,22 @@ export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
       mean: req.mean,
     },
   );
-  const data = res.data;
+  const data = JSON.parse(res.data.body);
   return data;
 });
 
+// DELETE データの削除
 export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
+  console.log('きた');
   const res = await axios.request({
     method: 'delete',
     url: 'https://8iodlvn98h.execute-api.ap-northeast-1.amazonaws.com/dev',
     data: { ID: req },
   });
-  const data = res.data;
-  return data;
+  console.log('きた22');
+  const data = JSON.parse(res.data.body);
+  console.log(data.Items);
+  return data.Items;
 });
 
 export const cardSlice = createSlice({
@@ -68,9 +74,11 @@ export const cardSlice = createSlice({
       state.error = action.error.message;
     });
     builder.addCase(addFetchCard.fulfilled, (state, action) => {
-      state.value.push(action.payload);
+      state.value = action.payload;
+      state.status = 'succeeded';
     });
     builder.addCase(deleteFetchCard.fulfilled, (state, action) => {
+      state.value = action.payload;
       state.status = 'succeeded';
     });
   },

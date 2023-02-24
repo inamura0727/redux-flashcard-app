@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import cardSlice, { shuffleCard } from '../redux/cardSlice';
+import  { shuffleCard } from '../redux/cardSlice';
 
 export const CardItem = () => {
   const [count, setCount] = useState(0);

@@ -1,14 +1,10 @@
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  addCard,
-  addFetchCard,
-  deleteCard,
-  deleteFetchCard,
-  fetchAsyncget,
-} from './redux/cardSlice';
+import { addFetchCard, fetchAsyncget } from './redux/cardSlice';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import EachCard from './components/EachCard';
+import { useCallback } from 'react';
 
 function CardList() {
   const [word, setWord] = useState('');
@@ -27,7 +23,7 @@ function CardList() {
     setWord('');
     setMean('');
   };
-
+ 
   return (
     <div className="App">
       <div>
@@ -53,17 +49,7 @@ function CardList() {
       <button>
         <a href="/">始める</a>
       </button>
-      <div className="displayCards">
-        {cardList.map((card) => (
-          <div key={card.ID.S}>
-            <h1>{card.word.S}</h1>
-            <p>{card.mean.S}</p>
-            <button onClick={() => dispatch(deleteFetchCard(card.ID.S))}>
-              削除
-            </button>
-          </div>
-        ))}
-      </div>
+      <EachCard />
     </div>
   );
 }
