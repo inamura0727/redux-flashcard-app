@@ -1,10 +1,42 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { CardData } from './DummyData';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+let cards = [];
+
+export const fetchAsyncget = createAsyncThunk('fetch/get', async () => {
+  const res = await axios.get(
+    'https://d0srykgawf.execute-api.ap-northeast-1.amazonaws.com/dev',
+  );
+  cards = JSON.stringify(res.data);
+  return res.data;
+});
+
+export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
+  const res = await axios.post(
+    'https://qg5is56b4g.execute-api.ap-northeast-1.amazonaws.com/dev',
+    {
+      word: req.word,
+      mean: req.mean,
+    },
+  );
+  const data = res.data;
+  return data;
+});
+
+export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
+  const res = await axios.request({
+    method: 'delete',
+    url: 'https://8iodlvn98h.execute-api.ap-northeast-1.amazonaws.com/dev',
+    data: { ID: req },
+  });
+  const data = res.data;
+  return data;
+});
 
 export const cardSlice = createSlice({
   name: 'cards',
   initialState: {
-    value: CardData,
+    value: cards,
   },
   reducers: {
     addCard: (state, action) => {
@@ -14,33 +46,36 @@ export const cardSlice = createSlice({
       state.value = state.value.filter((card) => card.id !== action.payload.id);
     },
     shuffleCard: (state) => {
-      let tmp = [...CardData];
+      let cardsTmp = JSON.parse(cards);
+      console.log(cardsTmp);
+      let tmp = [...cardsTmp];
       for (let i = tmp.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [tmp[i], tmp[j]] = [tmp[j], tmp[i]];
       }
       state.value = tmp;
     },
-    update: (state, action) => {
-      console.log(action.payload);
-      let tmp = state.value.filter((card) => card.id === action.payload.id);
-      console.log(tmp);
-      tmp = action.payload;
-      state.value = tmp;
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAsyncget.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchAsyncget.fulfilled, (state, action) => {
+      state.value = action.payload;
+      state.status = 'succeeded';
+    });
+    builder.addCase(fetchAsyncget.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+    });
+    builder.addCase(addFetchCard.fulfilled, (state, action) => {
+      state.value.push(action.payload);
+    });
+    builder.addCase(deleteFetchCard.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+    });
   },
 });
-
-export const getCards = () => {
-  return async (dispatch) => {
-    const res = await fetch(
-      'https://qg5is56b4g.execute-api.ap-northeast-1.amazonaws.com/dev',
-    );
-    console.log(res);
-    const data = await res.json();
-    dispatch(addCard(data));
-  };
-};
 
 export default cardSlice.reducer;
 export const { addCard, deleteCard, shuffleCard, answer, update } =
