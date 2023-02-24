@@ -47,7 +47,6 @@ export const cardSlice = createSlice({
     },
     shuffleCard: (state) => {
       let cardsTmp = JSON.parse(cards);
-      console.log(cardsTmp);
       let tmp = [...cardsTmp];
       for (let i = tmp.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
