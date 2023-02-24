@@ -1,7 +1,14 @@
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCard, deleteCard } from './redux/cardSlice';
+import {
+  addCard,
+  addFetchCard,
+  deleteCard,
+  deleteFetchCard,
+  fetchAsyncget,
+} from './redux/cardSlice';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 function CardList() {
   const [word, setWord] = useState('');
@@ -10,15 +17,13 @@ function CardList() {
   const cardList = useSelector((state) => state.cards.value);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchAsyncget());
+  }, [dispatch]);
+
   // 単語を追加
   const handleClick = () => {
-    dispatch(
-      addCard({
-        id: cardList.length + 1,
-        word: word,
-        mean: mean,
-      }),
-    );
+    dispatch(addFetchCard({ word: word, mean: mean }));
     setWord('');
     setMean('');
   };
@@ -50,10 +55,10 @@ function CardList() {
       </button>
       <div className="displayCards">
         {cardList.map((card) => (
-          <div key={card.id}>
-            <h1>{card.word}</h1>
-            <p>{card.mean}</p>
-            <button onClick={() => dispatch(deleteCard({ id: card.id }))}>
+          <div key={card.ID.S}>
+            <h1>{card.word.S}</h1>
+            <p>{card.mean.S}</p>
+            <button onClick={() => dispatch(deleteFetchCard(card.ID.S))}>
               削除
             </button>
           </div>
