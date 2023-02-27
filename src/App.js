@@ -10,7 +10,6 @@ function App() {
   const cardList = useSelector((state) => state.cards.value);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(fetchAsyncget());
   }, [dispatch]);
@@ -22,9 +21,9 @@ function App() {
       </div>
       <CardItem />
       <br />
-      <button>
-        <a href="/cardList">カード一覧ページへ</a>
-      </button>
+      <a href="/cardList">
+        <button className="btn btn_size_l">カード一覧ページへ</button>
+      </a>
     </div>
   );
 }

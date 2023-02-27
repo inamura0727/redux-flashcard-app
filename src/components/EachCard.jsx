@@ -12,25 +12,27 @@ const EachCard = memo(() => {
   return (
     <div>
       <table>
-        <tr className="table__head">
-          <th>単語</th>
-          <th>意味</th>
-          <th></th>
-        </tr>
-        {cardList.map((card) => (
-          <tr key={card.ID.S}>
-            <th className="word">{card.word.S}</th>
-            <th>{card.mean.S}</th>
-            <th>
-              <button
-                className="btn"
-                onClick={() => dispatch(deleteFetchCard(card.ID.S))}
-              >
-                削除
-              </button>
-            </th>
+        <tbody>
+          <tr className="table__head">
+            <th>単語</th>
+            <th>意味</th>
+            <th></th>
           </tr>
-        ))}
+          {cardList.map((card) => (
+            <tr key={card.ID.S}>
+              <th className="word">{card.word.S}</th>
+              <th>{card.mean.S}</th>
+              <th>
+                <button
+                  className="btn"
+                  onClick={() => dispatch(deleteFetchCard(card.ID.S))}
+                >
+                  削除
+                </button>
+              </th>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

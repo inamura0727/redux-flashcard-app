@@ -10,6 +10,7 @@ button {
 
 table {
   width: 700px;
+  max-width: 100%;
 }
 
 .table__head {
