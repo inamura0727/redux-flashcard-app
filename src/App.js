@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAsyncget } from './redux/cardSlice';
 import { CardItem } from './components/CardItem';
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,9 +14,11 @@ function App() {
 
   return (
     <div className="App">
-      <Helmet>
-        <title>単語帳アプリ</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>単語帳アプリ</title>
+        </Helmet>
+      </HelmetProvider>
       <div>
         <h1>React-redux-単語帳アプリ</h1>
       </div>

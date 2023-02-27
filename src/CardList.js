@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import EachCard from './components/EachCard';
 import './css/CardList.css';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 function CardList() {
   const [word, setWord] = useState('');
@@ -26,9 +26,11 @@ function CardList() {
 
   return (
     <>
-      <Helmet>
-        <title>単語帳アプリ</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>単語帳アプリ</title>
+        </Helmet>
+      </HelmetProvider>
       <div className="App">
         <div>
           <h1>React-redux-単語帳アプリ</h1>
