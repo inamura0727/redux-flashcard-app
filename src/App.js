@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAsyncget } from './redux/cardSlice';
 import { CardItem } from './components/CardItem';

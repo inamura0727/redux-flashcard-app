@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import EachCard from './components/EachCard';
 import { useCallback } from 'react';
+import './css/CardList.css';
 
 function CardList() {
   const [word, setWord] = useState('');
@@ -23,7 +24,7 @@ function CardList() {
     setWord('');
     setMean('');
   };
- 
+
   return (
     <div className="App">
       <div>
@@ -36,6 +37,7 @@ function CardList() {
           placeholder="単語を書いてね！"
           onChange={(e) => setWord(e.target.value)}
           value={word}
+          style={{ marginRight: '10px' }}
         />
         <input
           type="text"
@@ -43,12 +45,16 @@ function CardList() {
           onChange={(e) => setMean(e.target.value)}
           value={mean}
         />
-        <button onClick={() => handleClick()}>追加</button>
+        <button className="btn btn_wrapper" onClick={() => handleClick()}>
+          追加
+        </button>
         <hr />
       </div>
-      <button>
-        <a href="/">始める</a>
-      </button>
+      <div className="btn_wrapper">
+        <a href="/">
+          <button className="btn btn_size_l">始める</button>
+        </a>
+      </div>
       <EachCard />
     </div>
   );

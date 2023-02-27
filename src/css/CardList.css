@@ -1,0 +1,9 @@
+.btn_size_l {
+  width: 250px;
+  height: 50px;
+  font-size: 1.25rem;
+}
+
+.btn_wrapper {
+  margin: 20px;
+}
