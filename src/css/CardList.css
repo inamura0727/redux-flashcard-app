@@ -5,5 +5,9 @@
 }
 
 .btn_wrapper {
-  margin: 20px;
+  margin: 20px 0;
+}
+
+.btn_marginLeft {
+  margin-left: 20px;
 }

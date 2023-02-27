@@ -45,7 +45,7 @@ function CardList() {
           onChange={(e) => setMean(e.target.value)}
           value={mean}
         />
-        <button className="btn btn_wrapper" onClick={() => handleClick()}>
+        <button className="btn btn_wrapper btn_marginLeft" onClick={() => handleClick()}>
           追加
         </button>
         <hr />
