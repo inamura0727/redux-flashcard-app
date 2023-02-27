@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAsyncget } from './redux/cardSlice';
 import { CardItem } from './components/CardItem';
@@ -9,7 +9,6 @@ import { useEffect } from 'react';
 function App() {
   const cardList = useSelector((state) => state.cards.value);
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(fetchAsyncget());
@@ -22,9 +21,9 @@ function App() {
       </div>
       <CardItem />
       <br />
-      <button>
-        <a href="/cardList">カード一覧ページへ</a>
-      </button>
+      <a href="/cardList">
+        <button className="btn btn_size_l">カード一覧ページへ</button>
+      </a>
     </div>
   );
 }

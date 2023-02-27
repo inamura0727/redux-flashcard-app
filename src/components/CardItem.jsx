@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  { shuffleCard } from '../redux/cardSlice';
+import { shuffleCard } from '../redux/cardSlice';
+import '../css/CardItem.css';
 
 export const CardItem = () => {
   const [count, setCount] = useState(0);
@@ -9,6 +10,7 @@ export const CardItem = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [isShuffled, setIshuffled] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
+  const [active, setActive] = useState(false);
 
   const cards = useSelector((state) => state.cards.value);
   const dispatch = useDispatch();
@@ -31,7 +33,11 @@ export const CardItem = () => {
     }
     if (count < cards.length) {
       if (isFirst) {
+        setActive(true);
         setIsFirst(false);
+      }
+      if (isAnswer !== '') {
+        setIsAnswer('');
       }
       setCount((prev) => prev + 1);
     }
@@ -39,18 +45,32 @@ export const CardItem = () => {
 
   return (
     <div ref={answer}>
-      <button onClick={shuffle}>シャッフル</button>
+      <div className="btn_wrapper">
+        <button
+          onClick={shuffle}
+          className={`${active ? 'none' : ''} btn btn_size_m`}
+        >
+          シャッフル
+        </button>
+      </div>
       {isShuffled ? <p>シャッフルされた！</p> : null}
       {isFinished ? (
-        <button>
-          <a href="/cardList">一覧画面へ戻る</a>
-        </button>
+        <a href="/cardList">
+          <button className="btn btn_size_l">一覧画面へ戻る</button>
+        </a>
       ) : (
-        <button onClick={handleClikc}>{isFirst ? 'スタート' : '次へ'}</button>
+        <button className="btn btn_size_m" onClick={handleClikc}>
+          {isFirst ? 'スタート' : '次へ'}
+        </button>
       )}
       <h1>{cards[count].word.S}</h1>
-      <p>{isAnswer}</p>
-      <button onClick={() => setIsAnswer(cards[count].mean.S)}>答え</button>
+      <p>答え：{isAnswer}</p>
+      <button
+        className="btn_answer"
+        onClick={() => setIsAnswer(cards[count].mean.S)}
+      >
+        クリックして答えを表示
+      </button>
     </div>
   );
 };

@@ -1,0 +1,18 @@
+.none {
+  pointer-events: none;
+  background-color: rgb(161, 161, 161);
+}
+
+.btn_size_m {
+  width: 100px;
+}
+
+.btn_size_l{
+  width: 200px;
+}
+
+.btn_answer{
+  width: 170px;
+  font-weight: normal;
+  padding: 5px;
+}

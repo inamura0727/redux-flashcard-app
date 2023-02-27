@@ -1,0 +1,22 @@
+table,
+td,
+th,
+button {
+  margin: 0 auto;
+  border: 1px solid #333;
+  border-collapse: collapse;
+  padding: 5px 0;
+}
+
+table {
+  width: 700px;
+  max-width: 100%;
+}
+
+.table__head {
+  background-color: rgb(178, 227, 194);
+}
+
+.word {
+  font-size: 1.15rem;
+}
