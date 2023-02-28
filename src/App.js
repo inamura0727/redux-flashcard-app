@@ -20,12 +20,12 @@ function App() {
         </Helmet>
       </HelmetProvider>
       <div>
-        <h1>React-redux-単語帳アプリ</h1>
+        <h1>単語帳アプリ</h1>
       </div>
       <div className="content">
         <CardItem />
         <br />
-        <a href="/cardList">
+        <a href="/">
           <button className="btn btn_size_l">カード一覧ページへ</button>
         </a>
       </div>

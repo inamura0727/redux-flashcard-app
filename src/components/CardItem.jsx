@@ -68,7 +68,7 @@ export const CardItem = () => {
             </div>
             {isShuffled ? <p>シャッフルされた！</p> : null}
             {isFinished ? (
-              <a href="/cardList">
+              <a href="/">
                 <button className="btn btn_size_l">一覧画面へ戻る</button>
               </a>
             ) : (

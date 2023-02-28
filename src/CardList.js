@@ -37,9 +37,9 @@ function CardList() {
       <div className="App">
         <div className="upper_part">
           <div>
-            <h1>React-redux-単語帳アプリ</h1>
+            <h1>単語帳アプリ</h1>
           </div>
-          <h1>カードリストのページ</h1>
+          <h1>カード一覧のページ</h1>
           <div className="addPost">
             <input
               type="text"
@@ -65,7 +65,7 @@ function CardList() {
         </div>
         <div className="content">
           <div className="btn_wrapper">
-            <a href="/">
+            <a href="/cardList">
               <button className="btn btn_size_l">始める</button>
             </a>
           </div>
