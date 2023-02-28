@@ -17,6 +17,7 @@ const EachCard = memo(() => {
             <th>単語</th>
             <th>意味</th>
             <th></th>
+            <th></th>
           </tr>
           {cardList.map((card) => (
             <tr key={card.ID.S}>
@@ -29,6 +30,11 @@ const EachCard = memo(() => {
                 >
                   削除
                 </button>
+              </th>
+              <th>
+                <a href={`/edit/${card.ID.S}`}>
+                  <button className="btn">編集</button>
+                </a>
               </th>
             </tr>
           ))}

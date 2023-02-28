@@ -33,7 +33,6 @@ export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
     url: 'https://8iodlvn98h.execute-api.ap-northeast-1.amazonaws.com/dev',
     data: { ID: req },
   });
-  console.log('きた22');
   const data = JSON.parse(res.data.body);
   console.log(data.Items);
   return data.Items;
