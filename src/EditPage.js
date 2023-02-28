@@ -49,33 +49,35 @@ function EditPage() {
   return (
     <>
       <main className="App">
-        <h1>編集ページ</h1>
-        <div className="input_wrapper">
-          <span>単語：</span>
-          <input
-            type="text"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-          />
-          <br />
-          <span>意味：</span>
-          <input
-            type="text"
-            value={mean}
-            onChange={(e) => setMean(e.target.value)}
-          />
-        </div>
-        <div className="btn_wrapper">
-          <button className="btn btn_size_m" onClick={handleClick}>
-            更新する
-          </button>
-        </div>
-        {isUpdate ? <p>アップデートできました！</p> : null}
-        {isLoading ? <Loading /> : null}
-        <div>
-          <a href="/cardList">
-            <button className="btn btn_size_l">カード一覧ページへ</button>
-          </a>
+        <div className="content">
+          <h1>編集ページ</h1>
+          <div className="input_wrapper">
+            <span>単語：</span>
+            <input
+              type="text"
+              value={word}
+              onChange={(e) => setWord(e.target.value)}
+            />
+            <br />
+            <span>意味：</span>
+            <input
+              type="text"
+              value={mean}
+              onChange={(e) => setMean(e.target.value)}
+            />
+          </div>
+          <div className="btn_wrapper">
+            <button className="btn btn_size_m" onClick={handleClick}>
+              更新する
+            </button>
+          </div>
+          {isUpdate ? <p>アップデートできました！</p> : null}
+          {isLoading ? <Loading /> : null}
+          <div>
+            <a href="/cardList">
+              <button className="btn btn_size_l">カード一覧ページへ</button>
+            </a>
+          </div>
         </div>
       </main>
     </>
