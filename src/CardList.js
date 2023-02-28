@@ -6,15 +6,18 @@ import { useEffect } from 'react';
 import EachCard from './components/EachCard';
 import './css/CardList.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Loading } from './components/Loading';
 
 function CardList() {
   const [word, setWord] = useState('');
   const [mean, setMean] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAsyncget());
+    setIsLoading(false);
   }, [dispatch]);
 
   // 単語を追加
@@ -63,7 +66,7 @@ function CardList() {
             <button className="btn btn_size_l">始める</button>
           </a>
         </div>
-        <EachCard />
+        {isLoading ? <Loading /> : <EachCard />}
       </div>
     </>
   );
