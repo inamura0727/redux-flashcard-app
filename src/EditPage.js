@@ -11,6 +11,7 @@ function EditPage() {
   const [mean, setMean] = useState('');
   const [isUpdate, setIsUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const { id } = useParams();
   useEffect(() => {
@@ -33,6 +34,10 @@ function EditPage() {
   }
 
   const handleClick = async () => {
+    if ((word === '') | (mean === '')) {
+      setIsEmpty(true);
+      return;
+    }
     setIsLoading(true);
     await axios.patch(
       'https://ajcsom4nr4.execute-api.ap-northeast-1.amazonaws.com/dev',
@@ -44,6 +49,7 @@ function EditPage() {
     );
     setIsUpdate(true);
     setIsLoading(false);
+    setIsEmpty(false);
   };
 
   return (
@@ -56,20 +62,27 @@ function EditPage() {
             <input
               type="text"
               value={word}
-              onChange={(e) => setWord(e.target.value)}
+              onChange={(e) => {
+                setIsUpdate(false);
+                setWord(e.target.value);
+              }}
             />
             <br />
             <span>意味：</span>
             <input
               type="text"
               value={mean}
-              onChange={(e) => setMean(e.target.value)}
+              onChange={(e) => {
+                setIsUpdate(false);
+                setMean(e.target.value);
+              }}
             />
           </div>
           <div className="btn_wrapper">
             <button className="btn btn_size_m" onClick={handleClick}>
               更新する
             </button>
+            {isEmpty ? <p>単語、意味のどちらかが空欄だよ！</p> : null}
           </div>
           {isUpdate ? <p>アップデートできました！</p> : null}
           {isLoading ? <Loading /> : null}

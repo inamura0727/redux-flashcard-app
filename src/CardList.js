@@ -12,6 +12,7 @@ function CardList() {
   const [word, setWord] = useState('');
   const [mean, setMean] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -22,9 +23,14 @@ function CardList() {
 
   // 単語を追加
   const handleClick = () => {
+    if ((word === '') | (mean === '')) {
+      setIsEmpty(true);
+      return;
+    }
     dispatch(addFetchCard({ word: word, mean: mean }));
     setWord('');
     setMean('');
+    setIsEmpty(false);
   };
 
   return (
@@ -60,6 +66,7 @@ function CardList() {
             >
               追加
             </button>
+            <p>{isEmpty ? '単語、意味のどちらかが空欄だよ！' : null}</p>
             <hr />
           </div>
         </div>
