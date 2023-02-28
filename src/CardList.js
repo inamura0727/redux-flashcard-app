@@ -65,7 +65,7 @@ function CardList() {
         </div>
         <div className="content">
           <div className="btn_wrapper">
-            <a href="/">
+            <a href="/cardList">
               <button className="btn btn_size_l">始める</button>
             </a>
           </div>

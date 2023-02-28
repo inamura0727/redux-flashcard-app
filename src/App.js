@@ -25,7 +25,7 @@ function App() {
       <div className="content">
         <CardItem />
         <br />
-        <a href="/cardList">
+        <a href="/">
           <button className="btn btn_size_l">カード一覧ページへ</button>
         </a>
       </div>

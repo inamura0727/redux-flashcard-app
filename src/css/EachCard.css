@@ -24,3 +24,7 @@ table {
 .btn_color_gray {
   background-color: #446368;
 }
+
+.btn.btn_color_gray:hover {
+  color: #446368;
+}

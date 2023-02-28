@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFetchCard } from '../redux/cardSlice';
-import { memo, useEffect } from 'react';
-import { fetchAsyncget } from '../redux/cardSlice';
+import { memo,} from 'react';
 import '../css/EachCard.css';
 
 const EachCard = memo(() => {

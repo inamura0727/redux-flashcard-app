@@ -15,8 +15,8 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path={'/'} element={<App />} />
-          <Route path={'/cardList'} element={<CardList />} />
+          <Route path={'/'} element={<CardList />} />
+          <Route path={'/cardList'} element={<App />} />
           <Route path={'/edit/:id'} element={<EditPage />} />
         </Routes>
       </BrowserRouter>
