@@ -27,16 +27,27 @@ export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
 
 // DELETE データの削除
 export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
-  console.log('きた');
   const res = await axios.request({
     method: 'delete',
     url: 'https://8iodlvn98h.execute-api.ap-northeast-1.amazonaws.com/dev',
     data: { ID: req },
   });
-  console.log('きた22');
   const data = JSON.parse(res.data.body);
   console.log(data.Items);
   return data.Items;
+});
+
+// PATCH　データの更新
+export const patchFetchCard = createAsyncThunk('fetch/delete', async (req) => {
+  console.log('きた');
+  const res = await axios.patch(
+    'https://ajcsom4nr4.execute-api.ap-northeast-1.amazonaws.com/dev',
+    {
+      ID: req.ID,
+      word: req.word,
+      mean: req.mean,
+    },
+  );
 });
 
 export const cardSlice = createSlice({

@@ -22,11 +22,13 @@ function App() {
       <div>
         <h1>React-redux-単語帳アプリ</h1>
       </div>
-      <CardItem />
-      <br />
-      <a href="/cardList">
-        <button className="btn btn_size_l">カード一覧ページへ</button>
-      </a>
+      <div className="content">
+        <CardItem />
+        <br />
+        <a href="/cardList">
+          <button className="btn btn_size_l">カード一覧ページへ</button>
+        </a>
+      </div>
     </div>
   );
 }

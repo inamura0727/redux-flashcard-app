@@ -20,3 +20,7 @@ table {
 .word {
   font-size: 1.15rem;
 }
+
+.btn_color_gray {
+  background-color: #446368;
+}

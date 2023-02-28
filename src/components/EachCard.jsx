@@ -17,14 +17,20 @@ const EachCard = memo(() => {
             <th>単語</th>
             <th>意味</th>
             <th></th>
+            <th></th>
           </tr>
           {cardList.map((card) => (
             <tr key={card.ID.S}>
               <th className="word">{card.word.S}</th>
               <th>{card.mean.S}</th>
               <th>
+                <a href={`/edit/${card.ID.S}`}>
+                  <button className="btn">編集</button>
+                </a>
+              </th>
+              <th>
                 <button
-                  className="btn"
+                  className="btn btn_color_gray"
                   onClick={() => dispatch(deleteFetchCard(card.ID.S))}
                 >
                   削除
