@@ -34,7 +34,6 @@ export const CardItem = () => {
   const answer = useRef(null);
   useEffect(() => {
     if (cards.length !== 0) {
-      // setIsLoading(false);
     }
   }, [cards]);
 
@@ -64,13 +63,8 @@ export const CardItem = () => {
     }
   };
 
-  console.log(isLoading);
-
   return (
     <>
-      {/* {isLoading ? (
-        <Loading />
-      ) : ( */}
       <main>
         <div ref={answer}>
           <div className="btn_wrapper">
@@ -101,7 +95,6 @@ export const CardItem = () => {
           </button>
         </div>
       </main>
-      {/* )} */}
     </>
   );
 };

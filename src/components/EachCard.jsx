@@ -3,10 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteFetchCard } from '../redux/cardSlice';
 import { memo } from 'react';
 import '../css/EachCard.css';
-import { useQuery } from '@tanstack/react-query';
-import { Loading } from './Loading';
-import axios from 'axios';
-import { fetchAsyncget } from '../redux/cardSlice';
 
 const EachCard = memo(() => {
   const cardList = useSelector((state) => state.cards.value);
@@ -14,6 +10,11 @@ const EachCard = memo(() => {
 
   return (
     <div>
+      <div className="btn_wrapper">
+        <a href="/cardList">
+          <button className="btn btn_size_l">始める</button>
+        </a>
+      </div>
       <table>
         <tbody>
           <tr className="table__head">
