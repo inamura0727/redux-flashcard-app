@@ -1,13 +1,10 @@
-import React, { memo, Suspense } from 'react';
+import React, { memo, Suspense, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addFetchCard, fetchAsyncget } from './redux/cardSlice';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import EachCard from './components/EachCard';
 import './css/CardList.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Loading } from './components/Loading';
-
 
 function CardList() {
   const [word, setWord] = useState('');
@@ -19,8 +16,11 @@ function CardList() {
 
   useEffect(() => {
     dispatch(fetchAsyncget());
+  }, [dispatch]);
+
+  useEffect(() => {
     setIsLoading(false);
-  }, [dispatch, isLoading]);
+  }, [isLoading]);
 
   // 単語を追加
   const handleClick = async () => {
@@ -72,11 +72,6 @@ function CardList() {
           </div>
         </div>
         <div className="content">
-          <div className="btn_wrapper">
-            <a href="/cardList">
-              <button className="btn btn_size_l">始める</button>
-            </a>
-          </div>
           {isLoading && <Loading />}
           <EachCard />
         </div>
