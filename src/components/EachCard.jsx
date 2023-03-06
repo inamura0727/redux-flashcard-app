@@ -1,8 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFetchCard } from '../redux/cardSlice';
-import { memo,} from 'react';
+import { memo } from 'react';
 import '../css/EachCard.css';
+import { useQuery } from '@tanstack/react-query';
+import { Loading } from './Loading';
+import axios from 'axios';
+import { fetchAsyncget } from '../redux/cardSlice';
 
 const EachCard = memo(() => {
   const cardList = useSelector((state) => state.cards.value);
