@@ -2,8 +2,9 @@ import './css/App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAsyncget } from './redux/cardSlice';
 import { CardItem } from './components/CardItem';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Loading } from './components/Loading';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +24,9 @@ function App() {
         <h1>単語帳アプリ</h1>
       </div>
       <div className="content">
-        <CardItem />
+        <Suspense fallback={<Loading />}>
+          <CardItem />
+        </Suspense>
         <br />
         <a href="/">
           <button className="btn btn_size_l">カード一覧ページへ</button>
