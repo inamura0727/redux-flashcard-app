@@ -3,16 +3,30 @@ import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { shuffleCard } from '../redux/cardSlice';
 import '../css/CardItem.css';
-import { Loading } from './Loading';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 export const CardItem = () => {
+  const sleep = (ms) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  };
+  const fetchCards = async () => {
+    const result = await axios
+      .get('https://d0srykgawf.execute-api.ap-northeast-1.amazonaws.com/dev')
+      .then(await sleep(3000));
+    return result.data;
+  };
+  const { isLoading, error, data } = useQuery(['cards'], fetchCards);
+
   const [count, setCount] = useState(0);
   const [isAnswer, setIsAnswer] = useState('');
   const [isFinished, setIsFinished] = useState(false);
   const [isShuffled, setIshuffled] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
   const [active, setActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+
 
   const cards = useSelector((state) => state.cards.value);
   const dispatch = useDispatch();
@@ -20,11 +34,10 @@ export const CardItem = () => {
   const answer = useRef(null);
   useEffect(() => {
     if (cards.length !== 0) {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   }, [cards]);
 
-  console.log(cards);
   // APIカード情報が取得できない際はreturnを返す
   if (!cards.length) return;
 
@@ -51,42 +64,44 @@ export const CardItem = () => {
     }
   };
 
+  console.log(isLoading);
+
   return (
     <>
-      {isLoading ? (
+      {/* {isLoading ? (
         <Loading />
-      ) : (
-        <main>
-          <div ref={answer}>
-            <div className="btn_wrapper">
-              <button
-                onClick={shuffle}
-                className={`${active ? 'none' : ''} btn btn_size_m`}
-              >
-                シャッフル
-              </button>
-            </div>
-            {isShuffled ? <p>シャッフルされた！</p> : null}
-            {isFinished ? (
-              <a href="/">
-                <button className="btn btn_size_l">一覧画面へ戻る</button>
-              </a>
-            ) : (
-              <button className="btn btn_size_m" onClick={handleClikc}>
-                {isFirst ? 'スタート' : '次へ'}
-              </button>
-            )}
-            <h1>{cards[count].word.S}</h1>
-            <p>答え：{isAnswer}</p>
+      ) : ( */}
+      <main>
+        <div ref={answer}>
+          <div className="btn_wrapper">
             <button
-              className="btn_answer"
-              onClick={() => setIsAnswer(cards[count].mean.S)}
+              onClick={shuffle}
+              className={`${active ? 'none' : ''} btn btn_size_m`}
             >
-              クリックして答えを表示
+              シャッフル
             </button>
           </div>
-        </main>
-      )}
+          {isShuffled ? <p>シャッフルされた！</p> : null}
+          {isFinished ? (
+            <a href="/">
+              <button className="btn btn_size_l">一覧画面へ戻る</button>
+            </a>
+          ) : (
+            <button className="btn btn_size_m" onClick={handleClikc}>
+              {isFirst ? 'スタート' : '次へ'}
+            </button>
+          )}
+          <h1>{cards[count].word.S}</h1>
+          <p>答え：{isAnswer}</p>
+          <button
+            className="btn_answer"
+            onClick={() => setIsAnswer(cards[count].mean.S)}
+          >
+            クリックして答えを表示
+          </button>
+        </div>
+      </main>
+      {/* )} */}
     </>
   );
 };
