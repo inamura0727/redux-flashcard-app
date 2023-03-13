@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import { useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { shuffleCard } from '../redux/cardSlice';
 import '../css/CardItem.css';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -18,7 +16,7 @@ export const CardItem = () => {
       .then(await sleep(3000));
     return result.data;
   };
-  const { isLoading, error, data } = useQuery(['cards'], fetchCards);
+  let {data } = useQuery(['cards'], fetchCards);
 
   const [count, setCount] = useState(0);
   const [isAnswer, setIsAnswer] = useState('');
@@ -26,32 +24,35 @@ export const CardItem = () => {
   const [isShuffled, setIshuffled] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
   const [active, setActive] = useState(false);
-
-
-  const cards = useSelector((state) => state.cards.value);
-  const dispatch = useDispatch();
-
+  const [cards, setCards] = useState(data);
   const answer = useRef(null);
+  
   useEffect(() => {
-    if (cards.length !== 0) {
+    if (data.length !== 0) {
     }
-  }, [cards]);
+  }, [data]);
+
 
   // APIカード情報が取得できない際はreturnを返す
-  if (!cards.length) return;
+  if (!data.length) return;
 
   const shuffle = () => {
-    dispatch(shuffleCard(cards));
+    let tmp = [...data];
+    for (let i = tmp.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [tmp[i], tmp[j]] = [tmp[j], tmp[i]];
+    }
+    setCards(tmp);
     setIshuffled(true);
   };
 
   const handleClikc = () => {
     // カードを全部回し終えたらボタンを切り変え&「次へ」ボタンを表示させない
-    if (count === cards.length - 1) {
+    if (count === data.length - 1) {
       setIsFinished(true);
       return;
     }
-    if (count < cards.length) {
+    if (count < data.length) {
       if (isFirst) {
         setActive(true);
         setIsFirst(false);
@@ -85,11 +86,11 @@ export const CardItem = () => {
               {isFirst ? 'スタート' : '次へ'}
             </button>
           )}
-          <h1>{cards[count].word.S}</h1>
+          <h1>{cards[count].word}</h1>
           <p>答え：{isAnswer}</p>
           <button
             className="btn_answer"
-            onClick={() => setIsAnswer(cards[count].mean.S)}
+            onClick={() => setIsAnswer(cards[count].mean)}
           >
             クリックして答えを表示
           </button>

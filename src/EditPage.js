@@ -7,13 +7,6 @@ import React, { Suspense, useState } from 'react';
 import { UpdateCard } from './components/UpdateCard';
 
 function EditPage() {
-  const [card, setCard] = useState(null);
-  const [word, setWord] = useState('');
-  const [mean, setMean] = useState('');
-  const [isUpdate, setIsUpdate] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
-
   const { id } = useParams();
 
   return (
