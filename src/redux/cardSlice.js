@@ -1,26 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Config } from '../config';
 
 let cards = [];
 
 // GET データの取得
 export const fetchAsyncget = createAsyncThunk('fetch/get', async () => {
-  const res = await axios.get(
-    'https://d0srykgawf.execute-api.ap-northeast-1.amazonaws.com/dev',
-  );
+  const res = await axios.get(`${process.env.REACT_APP_CARD}`);
   cards = JSON.stringify(res.data);
   return res.data;
 });
 
 // POST データの追加
 export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
-  const res = await axios.post(
-    'https://qg5is56b4g.execute-api.ap-northeast-1.amazonaws.com/dev',
-    {
-      word: req.word,
-      mean: req.mean,
-    },
-  );
+  const res = await axios.post(process.env.REACT_APP_POST, {
+    word: req.word,
+    mean: req.mean,
+  });
   const data = JSON.parse(res.data.body);
   return data;
 });
@@ -29,25 +25,20 @@ export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
 export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
   const res = await axios.request({
     method: 'delete',
-    url: 'https://8iodlvn98h.execute-api.ap-northeast-1.amazonaws.com/dev',
+    url: process.env.REACT_APP_DELETE,
     data: { ID: req },
   });
   const data = JSON.parse(res.data.body);
-  console.log(data.Items);
   return data.Items;
 });
 
 // PATCH　データの更新
 export const patchFetchCard = createAsyncThunk('fetch/delete', async (req) => {
-  console.log('きた');
-  const res = await axios.patch(
-    'https://ajcsom4nr4.execute-api.ap-northeast-1.amazonaws.com/dev',
-    {
-      ID: req.ID,
-      word: req.word,
-      mean: req.mean,
-    },
-  );
+  const res = await axios.patch(process.env.REACT_APP_PATCH, {
+    ID: req.ID,
+    word: req.word,
+    mean: req.mean,
+  });
 });
 
 export const cardSlice = createSlice({

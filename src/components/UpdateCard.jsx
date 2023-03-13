@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { Loading } from './Loading';
 import { sleep } from './Sleep';
-
 import React from 'react';
 
 export const UpdateCard = ({ id }) => {
@@ -13,18 +12,22 @@ export const UpdateCard = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
 
+  const url = process.env.REACT_APP_GET_BYID;
+
   const fetchCard = async () => {
     const result = await axios
-      .post(`https://r8g482ppe4.execute-api.ap-northeast-1.amazonaws.com/dev`, {
+      .post(url, {
         ID: id,
+        headers: {
+          'Content-Type': 'text/plain',
+        },
       })
       .then(await sleep(2000));
     return result.data;
   };
 
-  const { loading, error, data } = useQuery(['cards'], fetchCard);
+  const { data } = useQuery(['cards'], fetchCard);
 
-  // console.log('hello');
   const item = JSON.parse(data.body);
   useEffect(() => {
     // setCard(item);
@@ -38,14 +41,11 @@ export const UpdateCard = ({ id }) => {
       return;
     }
     setIsLoading(true);
-    await axios.patch(
-      'https://ajcsom4nr4.execute-api.ap-northeast-1.amazonaws.com/dev',
-      {
-        ID: id,
-        word: word,
-        mean: mean,
-      },
-    );
+    await axios.patch(process.env.REACT_APP_PATCH, {
+      ID: id,
+      word: word,
+      mean: mean,
+    });
     setIsUpdate(true);
     setIsLoading(false);
     setIsEmpty(false);

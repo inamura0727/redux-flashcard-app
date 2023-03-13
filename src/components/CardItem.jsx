@@ -12,11 +12,12 @@ export const CardItem = () => {
   };
   const fetchCards = async () => {
     const result = await axios
-      .get('https://d0srykgawf.execute-api.ap-northeast-1.amazonaws.com/dev')
+      .get(process.env.REACT_APP_CARD)
       .then(await sleep(3000));
     return result.data;
   };
-  let {data } = useQuery(['cards'], fetchCards);
+  let { data } = useQuery(['cards'], fetchCards);
+  
 
   const [count, setCount] = useState(0);
   const [isAnswer, setIsAnswer] = useState('');
@@ -26,12 +27,11 @@ export const CardItem = () => {
   const [active, setActive] = useState(false);
   const [cards, setCards] = useState(data);
   const answer = useRef(null);
-  
+
   useEffect(() => {
     if (data.length !== 0) {
     }
   }, [data]);
-
 
   // APIカード情報が取得できない際はreturnを返す
   if (!data.length) return;
