@@ -4,16 +4,17 @@ import { Config } from '../config';
 
 let cards = [];
 
+
 // GET データの取得
 export const fetchAsyncget = createAsyncThunk('fetch/get', async () => {
-  const res = await axios.get(`${process.env.REACT_APP_CARD}`);
+  const res = await axios.get(Config.REACT_APP_CARD);
   cards = JSON.stringify(res.data);
   return res.data;
 });
 
 // POST データの追加
 export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
-  const res = await axios.post(process.env.REACT_APP_POST, {
+  const res = await axios.post(Config.REACT_APP_POST, {
     word: req.word,
     mean: req.mean,
   });
@@ -25,7 +26,7 @@ export const addFetchCard = createAsyncThunk('fetch/post', async (req) => {
 export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
   const res = await axios.request({
     method: 'delete',
-    url: process.env.REACT_APP_DELETE,
+    url: Config.REACT_APP_DELETE,
     data: { ID: req },
   });
   const data = JSON.parse(res.data.body);
@@ -34,7 +35,7 @@ export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
 
 // PATCH　データの更新
 export const patchFetchCard = createAsyncThunk('fetch/delete', async (req) => {
-  const res = await axios.patch(process.env.REACT_APP_PATCH, {
+  const res = await axios.patch(Config.REACT_APP_PATCH, {
     ID: req.ID,
     word: req.word,
     mean: req.mean,

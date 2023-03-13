@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import '../css/CardItem.css';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { Config } from '../config';
 
 export const CardItem = () => {
   const sleep = (ms) => {
@@ -12,12 +13,11 @@ export const CardItem = () => {
   };
   const fetchCards = async () => {
     const result = await axios
-      .get(process.env.REACT_APP_CARD)
+      .get(Config.REACT_APP_CARD)
       .then(await sleep(3000));
     return result.data;
   };
   let { data } = useQuery(['cards'], fetchCards);
-  
 
   const [count, setCount] = useState(0);
   const [isAnswer, setIsAnswer] = useState('');
