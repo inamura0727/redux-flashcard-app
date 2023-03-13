@@ -24,18 +24,18 @@ const EachCard = memo(() => {
             <th></th>
           </tr>
           {cardList.map((card) => (
-            <tr key={card.ID.S}>
-              <th className="word">{card.word.S}</th>
-              <th>{card.mean.S}</th>
+            <tr key={card.ID}>
+              <th className="word">{card.word}</th>
+              <th>{card.mean}</th>
               <th>
-                <a href={`/edit/${card.ID.S}`}>
+                <a href={`/edit/${card.ID}`}>
                   <button className="btn">編集</button>
                 </a>
               </th>
               <th>
                 <button
                   className="btn btn_color_gray"
-                  onClick={() => dispatch(deleteFetchCard(card.ID.S))}
+                  onClick={() => dispatch(deleteFetchCard(card.ID))}
                 >
                   削除
                 </button>
