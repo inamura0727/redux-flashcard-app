@@ -46,8 +46,6 @@ export const CardItem = () => {
     setIshuffled(true);
   };
 
-  console.log(cards);
-
   const handleClikc = () => {
     // カードを全部回し終えたらボタンを切り変え&「次へ」ボタンを表示させない
     if (count === data.length - 1) {
