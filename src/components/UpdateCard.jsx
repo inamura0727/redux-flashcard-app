@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Loading } from './Loading';
 import { sleep } from './Sleep';
 import React from 'react';
+import { Config } from '../config';
 
 export const UpdateCard = ({ id }) => {
   const [word, setWord] = useState('');
@@ -12,7 +13,7 @@ export const UpdateCard = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
 
-  const url = process.env.REACT_APP_GET_BYID;
+  const url = Config.REACT_APP_GET_BYID;
 
   const fetchCard = async () => {
     const result = await axios
@@ -41,7 +42,7 @@ export const UpdateCard = ({ id }) => {
       return;
     }
     setIsLoading(true);
-    await axios.patch(process.env.REACT_APP_PATCH, {
+    await axios.patch(Config.REACT_APP_PATCH, {
       ID: id,
       word: word,
       mean: mean,
