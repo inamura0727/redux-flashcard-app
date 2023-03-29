@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Expose } from 'class-transformer';
 import { Config } from '../config';
 
 let cards = [];
@@ -35,7 +34,7 @@ export const deleteFetchCard = createAsyncThunk('fetch/delete', async (req) => {
 
 // PATCH　データの更新
 export const patchFetchCard = createAsyncThunk('fetch/delete', async (req) => {
-  const res = await axios.patch(Config.REACT_APP_PATCH, {
+  await axios.patch(Config.REACT_APP_PATCH, {
     ID: req.ID,
     word: req.word,
     mean: req.mean,
