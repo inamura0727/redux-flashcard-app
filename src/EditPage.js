@@ -1,9 +1,7 @@
-import axios from 'axios';
-// import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loading } from './components/Loading';
 import './css/EditPage.css';
-import React, { Suspense, useState } from 'react';
+import React, { Suspense } from 'react';
 import { UpdateCard } from './components/UpdateCard';
 
 function EditPage() {

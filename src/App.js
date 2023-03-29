@@ -1,5 +1,5 @@
 import './css/App.css';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { fetchAsyncget } from './redux/cardSlice';
 import { CardItem } from './components/CardItem';
 import { Suspense, useEffect } from 'react';

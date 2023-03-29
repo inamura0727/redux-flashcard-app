@@ -1,4 +1,4 @@
-import React, { memo, Suspense, useState, useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFetchCard, fetchAsyncget, selectStatus } from './redux/cardSlice';
 import EachCard from './components/EachCard';
