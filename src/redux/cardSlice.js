@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Expose } from 'class-transformer';
 import { Config } from '../config';
 
 let cards = [];
-
 
 // GET データの取得
 export const fetchAsyncget = createAsyncThunk('fetch/get', async () => {
@@ -46,6 +46,7 @@ export const cardSlice = createSlice({
   name: 'cards',
   initialState: {
     value: cards,
+    status: '',
   },
   reducers: {
     addCard: (state, action) => {
@@ -80,9 +81,21 @@ export const cardSlice = createSlice({
       state.value = action.payload;
       state.status = 'succeeded';
     });
+    builder.addCase(addFetchCard.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(addFetchCard.rejected, (state, action) => {
+      state.status = 'failed';
+    });
     builder.addCase(deleteFetchCard.fulfilled, (state, action) => {
       state.value = action.payload;
       state.status = 'succeeded';
+    });
+    builder.addCase(deleteFetchCard.pending, (state, action) => {
+      state.status = 'loading';
+    });
+    builder.addCase(deleteFetchCard.rejected, (state, action) => {
+      state.status = 'failed';
     });
   },
 });
@@ -90,3 +103,5 @@ export const cardSlice = createSlice({
 export default cardSlice.reducer;
 export const { addCard, deleteCard, shuffleCard, answer, update } =
   cardSlice.actions;
+
+export const selectStatus = (state) => state.cards.status;

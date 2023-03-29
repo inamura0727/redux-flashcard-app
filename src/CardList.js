@@ -1,6 +1,6 @@
 import React, { memo, Suspense, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addFetchCard, fetchAsyncget } from './redux/cardSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFetchCard, fetchAsyncget, selectStatus } from './redux/cardSlice';
 import EachCard from './components/EachCard';
 import './css/CardList.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -13,6 +13,7 @@ function CardList() {
   const [isEmpty, setIsEmpty] = useState(false);
 
   const dispatch = useDispatch();
+  const status = useSelector(selectStatus);
 
   useEffect(() => {
     dispatch(fetchAsyncget());
@@ -72,8 +73,9 @@ function CardList() {
           </div>
         </div>
         <div className="content">
-          {isLoading && <Loading />}
+          {status === 'loading' && <Loading />}
           <EachCard />
+          {status === 'failed' && <p>Fetch Failed</p>}
         </div>
       </div>
     </>
