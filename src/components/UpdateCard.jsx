@@ -27,15 +27,16 @@ export const UpdateCard = ({ id }) => {
     return result.data;
   };
 
-  const { data } = useQuery(['cards'], fetchCard);
+  const { data, error } = useQuery(['cards'], fetchCard);
 
   const item = JSON.parse(data.body);
   useEffect(() => {
-    // setCard(item);
     setWord(item.word.S);
     setMean(item.mean.S);
   }, []);
 
+  if (error) return <div>Fetch Failed!</div>;
+  
   const handleClick = async () => {
     if ((word === '') | (mean === '')) {
       setIsEmpty(true);

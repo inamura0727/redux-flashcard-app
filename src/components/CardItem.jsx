@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import '../css/CardItem.css';
 import { useQuery } from '@tanstack/react-query';
@@ -6,6 +5,7 @@ import axios from 'axios';
 import { Config } from '../config';
 
 export const CardItem = () => {
+  // データ取得に時間がかかる想定のため
   const sleep = (ms) => {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
@@ -17,7 +17,7 @@ export const CardItem = () => {
       .then(await sleep(3000));
     return result.data;
   };
-  let { data } = useQuery(['cards'], fetchCards);
+  let { data, error } = useQuery(['cards'], fetchCards);
 
   const [count, setCount] = useState(0);
   const [isAnswer, setIsAnswer] = useState('');
@@ -28,14 +28,10 @@ export const CardItem = () => {
   const [cards, setCards] = useState(data);
   const answer = useRef(null);
 
-  useEffect(() => {
-    if (data.length !== 0) {
-    }
-  }, [data]);
-
   // APIカード情報が取得できない際はreturnを返す
-  if (!data.length) return;
+  if (error) return <div>Fetch Failed!</div>;
 
+  // カードの順番をシャッフル
   const shuffle = () => {
     let tmp = [...data];
     for (let i = tmp.length - 1; i > 0; i--) {
@@ -54,7 +50,9 @@ export const CardItem = () => {
     }
     if (count < data.length) {
       if (isFirst) {
+        // シャッフルを押させないため
         setActive(true);
+        // ボタンの切り替え
         setIsFirst(false);
       }
       if (isAnswer !== '') {
