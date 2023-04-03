@@ -19,10 +19,6 @@ function CardList() {
     dispatch(fetchAsyncget());
   }, [dispatch]);
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, [isLoading]);
-
   // 単語を追加
   const handleClick = async () => {
     if ((word === '') | (mean === '')) {
